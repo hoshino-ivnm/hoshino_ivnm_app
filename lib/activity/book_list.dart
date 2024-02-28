@@ -40,12 +40,19 @@ class BookTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: Image(image: NetworkImage(book.thumbnailUrl)),
-      title: Text(book.title),
-      subtitle: Text(book.author),
-      onTap: () => _navigateToDetailsPage(book, context),
-    );
+    return Card(
+        child: SizedBox(
+            width: 300,
+            height: 100,
+            child: ListTile(
+              leading: Image.network(book.thumbnailUrl),
+              title: Text(
+                  overflow: TextOverflow.ellipsis,
+                  book.title,
+                  style: const TextStyle(fontSize: 15)),
+              subtitle: Text(book.author, style: const TextStyle(fontSize: 12)),
+              onTap: () => _navigateToDetailsPage(book, context),
+            )));
   }
 }
 
@@ -63,6 +70,7 @@ Future<List<Book>> _fetchPotterBooks() async {
   }
 }
 
+//解析书籍列表的json
 List<Book> _parseBookJson(String jsonStr) {
   final jsonMap = json.decode(jsonStr);
   final jsonList = (jsonMap['items'] as List);
@@ -77,7 +85,7 @@ List<Book> _parseBookJson(String jsonStr) {
             .toList()
         : null;
 
-    // Use null-aware operators to safely access nested keys
+    // 防止无封面报错
     final thumbnailUrl = volumeInfo?['imageLinks']?['thumbnail'] ??
         'https://misaka.sakurakoi.top/assets/image/no_img.webp';
 
@@ -132,7 +140,7 @@ class BookDetails extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Image.network(book.thumbnailUrl),
-          const SizedBox(height: 100.0),
+          const SizedBox(height: 50.0),
           Text(book.title),
           Padding(
             padding: const EdgeInsets.only(top: 50.0),

@@ -4,9 +4,13 @@ A new Flutter project.
 
 ## packages
 
-https://pub.dev/packages/flutter_scankit
+扫码功能：https://pub.dev/packages/flutter_scankit
 
-https://pub.dev/packages/flutter_easy_permission
+权限申请功能：https://pub.dev/packages/flutter_easy_permission
+
+缓存管理：https://pub.dev/packages/flutter_cache_manager
+
+网络图片缓存：https://pub.dev/packages/cached_network_image
 
 ## Getting Started
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hoshino_ivnm_app/activity/testpage.dart';
 
 import 'activity/book_list.dart';
 import 'activity/code_scan.dart';
@@ -14,7 +15,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'applicationName',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -52,7 +53,7 @@ class _Navigation extends State<Navigation> {
     const CodeScanPage(),
     const BookFinderPage(),
     const CommutePage(),
-    const SavedPage(),
+    const testpage(),
     const SavedPage(),
   ];
 
