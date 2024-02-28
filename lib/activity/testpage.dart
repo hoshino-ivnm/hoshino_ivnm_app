@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../components/text/icon_text.dart';
+
 class testpage extends StatelessWidget {
   const testpage({super.key});
 
@@ -24,7 +26,8 @@ class testpage extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(14.0),
                       child: Image.network(
-                        'https://books.google.com/books/content?id=kcrMDwAAQBAJ&printsec=frontcover&img=1&zoom=4&source=gbs_api', // 你的图片路径
+                        'https://books.google.com/books/content?id=kcrMDwAAQBAJ&printsec=frontcover&img=1&zoom=4&source=gbs_api',
+                        // 你的图片路径
                         fit: BoxFit.contain, // 保持比例并且尽量填满
                       ),
                     ),
@@ -40,87 +43,87 @@ class testpage extends StatelessWidget {
                           Expanded(
                             flex: 2,
                             child: Container(
-                              color: Colors.green,
                               child: const Align(
                                 alignment: Alignment.centerLeft,
-                                child: Text('上面一半'),
+                                child: Text('ぼっち・ざ・ろっく！2巻'),
                               ),
                             ),
                           ),
                           // 其余部分(作者，日期，状态啥的)
-                          Expanded(
+                          const Expanded(
                             flex: 1,
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 // 第一个下面块
                                 Expanded(
-                                  child: Container(
-                                    color: Colors.orange,
-                                    child: const Center(
-                                      child: Text('下面一半左边'),
-                                    ),
-                                  ),
-                                ),
-                                // 第二个下面块
-                                Expanded(
-                                  child: Container(
-                                    color: Colors.yellow,
-                                    child: const Center(
-                                      child: Text('下面一半右边'),
-                                    ),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: ClipRect(
+                                        child: IconText(
+                                            icon: Icons.person, text: "test")),
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                          Expanded(
+                          const Expanded(
                             flex: 1,
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                // 第一个下面块
                                 Expanded(
-                                  child: Container(
-                                    color: Colors.yellow,
-                                    child: const Center(
-                                      child: Text('下面一半左边'),
-                                    ),
-                                  ),
-                                ),
-                                // 第二个下面块
-                                Expanded(
-                                  child: Container(
-                                    color: Colors.orange,
-                                    child: const Center(
-                                      child: Text('下面一半右边'),
-                                    ),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: ClipRect(
+                                        child: IconText(
+                                            icon: Icons.date_range,
+                                            text: "最早入库时间：2023/10/10")),
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                          Expanded(
+                          const Expanded(
+                            flex: 1,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Expanded(
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: ClipRect(
+                                        child: IconText(
+                                            icon: Icons.date_range,
+                                            text: "最后一本出库时间：2023/10/10")),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Expanded(
                             flex: 1,
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 // 第一个下面块
                                 Expanded(
-                                  child: Container(
-                                    color: Colors.orange,
-                                    child: const Center(
-                                      child: Text('下面一半左边'),
-                                    ),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: ClipRect(
+                                        child: IconText(
+                                            icon: Icons.storage,
+                                            text: "总数：10")),
                                   ),
                                 ),
                                 // 第二个下面块
                                 Expanded(
-                                  child: Container(
-                                    color: Colors.yellow,
-                                    child: const Center(
-                                      child: Text('下面一半右边'),
-                                    ),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: ClipRect(
+                                        child: IconText(
+                                            icon: Icons.output,
+                                            text: "出库数：10")),
                                   ),
                                 ),
                               ],

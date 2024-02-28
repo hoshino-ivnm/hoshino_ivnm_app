@@ -77,7 +77,7 @@ class _Navigation extends State<Navigation> {
           NavigationDestination(
             selectedIcon: Icon(Icons.table_chart),
             icon: Icon(Icons.table_chart_outlined),
-            label: '列表',
+            label: '书籍列表',
           ),
           NavigationDestination(
             selectedIcon: Icon(Icons.info_rounded),
