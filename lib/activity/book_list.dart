@@ -9,12 +9,20 @@ import '../components/text/icon_text.dart';
 const url =
     'https://www.googleapis.com/books/v1/volumes?q=%E3%81%BE%E3%82%93%E3%81%8C%E3%82%BF%E3%82%A4%E3%83%A0%E3%81%8D%E3%82%89%E3%82%89';
 
-class BookFinderPage extends StatelessWidget {
+class BookFinderPage extends StatefulWidget {
   const BookFinderPage({super.key});
+
+  @override
+  State<BookFinderPage> createState() => BookList();
+}
+
+class BookList extends State<BookFinderPage> {
+  final ScrollController controller = ScrollController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: const Text('书籍列表')),
       body: FutureBuilder(
           future: _fetchPotterBooks(),
           builder: (context, AsyncSnapshot<List<Book>> snapshot) {
@@ -24,8 +32,17 @@ class BookFinderPage extends StatelessWidget {
                     'An error occurred in the FutureBuilder: ${snapshot.error}');
                 return Center(child: Text('Error: ${snapshot.error}'));
               } else {
-                return ListView(
-                    children: snapshot.data!.map((b) => BookTile(b)).toList());
+                return Scrollbar(
+                    thickness: 5.0,
+                    radius: const Radius.circular(10),
+                    thumbVisibility: true,
+                    controller: controller,
+                    child: Container(
+                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        child: ListView(
+                            children: snapshot.data!
+                                .map((b) => BookTile(b))
+                                .toList())));
               }
             } else {
               return const Center(child: CircularProgressIndicator());
@@ -43,10 +60,36 @@ class BookTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+      ),
       child: InkWell(
         splashColor: Colors.pink[100],
+        borderRadius: BorderRadius.circular(20.0),
         onTap: () {
-          _navigateToDetailsPage(book, context);
+          Scaffold.of(context).showBottomSheet(
+            (BuildContext context) {
+              return Container(
+                height: MediaQuery.of(context).size.height,
+                color: Colors.amber,
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      const Text('BottomSheet'),
+                      ElevatedButton(
+                        child: const Text('Close BottomSheet'),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
         },
         child: SizedBox(
           height: 150,

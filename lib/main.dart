@@ -16,6 +16,8 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'applicationName',
+      scrollBehavior:
+          const MaterialScrollBehavior().copyWith(scrollbars: false),
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -51,7 +53,7 @@ class _Navigation extends State<Navigation> {
   int _currentPageIndex = 2;
   final List<Widget> _pages = [
     const CodeScanPage(),
-    const BookFinderPage(),
+    BookFinderPage(),
     const CommutePage(),
     const testpage(),
     const SavedPage(),
