@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_easy_permission/easy_permissions.dart';
 import 'package:flutter_scankit/flutter_scankit.dart';
+import 'package:http/http.dart' as http;
 
 import '../components/dialog/confirm.dart';
 
@@ -37,9 +40,13 @@ class _CodeScanPageState extends State<CodeScanPage> {
       debugPrint(
           "scanning result:${val.originalValue}  scanType:${val.scanType}");
       if (result) {
-        setState(() {
-          code = val.originalValue;
-        });
+        if (_doFormPost(val.originalValue)) {
+          setState(() {
+            code = "ok";
+          });
+        } else {
+          code = "no";
+        }
       }
     });
 
@@ -58,7 +65,16 @@ class _CodeScanPageState extends State<CodeScanPage> {
 
   Future<void> startScan() async {
     try {
-      await scanKit?.startScan();
+      await scanKit?.startScan(
+          scanTypes: ScanTypes.codaBar.bit |
+              ScanTypes.upcCodeA.bit |
+              ScanTypes.upcCodeE.bit |
+              ScanTypes.itf14.bit |
+              ScanTypes.ean8.bit |
+              ScanTypes.ean13.bit |
+              ScanTypes.code39.bit |
+              ScanTypes.code93.bit |
+              ScanTypes.code128.bit);
     } catch (e) {
       debugPrint(e.toString());
     }
@@ -96,5 +112,18 @@ class _CodeScanPageState extends State<CodeScanPage> {
         ),
       ),
     );
+  }
+
+  _doFormPost(id) async {
+    var url = Uri.parse('http://192.168.101.3:3000/book');
+    var params = {'id': id};
+    var json = jsonEncode(params);
+    var response = await http
+        .post(url, body: json, headers: {'content-type': 'application/json'});
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
