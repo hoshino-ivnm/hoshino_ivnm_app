@@ -113,7 +113,7 @@ class _CodeScanPageState extends State<CodeScanPage> {
       ),
     );
   }
-
+  // post请求 之后需要重新设计到通用请求库调用
   _doFormPost(id) async {
     var url = Uri.parse('http://192.168.101.3:3000/book');
     var params = {'id': id};
